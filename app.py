@@ -32,22 +32,22 @@ else:
 ohlc.columns = ["open", "high", "low", "close"]
 ohlc.dropna(inplace=True)
 
-# ======== Converti la data in formato numerico (Unix timestamp) ========
-ohlc['timestamp'] = ohlc.index.astype(int) / 10**9  # Unix timestamp
+# ======== Converti la data in formato stringa (ISO 8601) ========
+ohlc['time_str'] = ohlc.index.strftime('%Y-%m-%d %H:%M:%S')
 
 # ======== Grafico Candlestick con colori personalizzati e tooltip in italiano ========
 threshold = 25  # Soglia per il caldo (ad esempio, 25°C)
 colors = ['red' if x > threshold else 'blue' for x in ohlc['close']]  # Colore rosso per temperature alte, blu per basse
 
 fig = go.Figure(data=[go.Candlestick(
-    x=ohlc['timestamp'],  # Usando il timestamp numerico
+    x=ohlc['time_str'],  # Usando la data in formato stringa
     open=ohlc['open'],
     high=ohlc['high'],
     low=ohlc['low'],
     close=ohlc['close'],
     increasing_line_color='red',  # Rosso per temperatura alta
     decreasing_line_color='blue',  # Blu per temperatura bassa
-    hovertemplate='<b>Data</b>: %{x|%d-%m-%Y %H:%M}<br><b>Temperatura</b>: %{y}°C<br>'  # Tooltip in italiano con formato data
+    hovertemplate='<b>Data</b>: %{x}<br><b>Temperatura</b>: %{y}°C<br>'  # Tooltip in italiano con formato data
 )])
 
 fig.update_layout(
