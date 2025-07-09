@@ -1,4 +1,3 @@
-
 import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
@@ -48,8 +47,6 @@ fig = go.Figure(data=[go.Candlestick(
     close=ohlc['close'],
     increasing_line_color='red',  # Rosso per temperatura alta
     decreasing_line_color='blue',  # Blu per temperatura bassa
-    increasing_fillcolor='rgba(255,0,0,0.6)',  # Colore rosso quando è caldo
-    decreasing_fillcolor='rgba(0,0,255,0.6)',  # Colore blu quando è freddo
     hovertemplate='<b>Data</b>: %{x|%d-%m-%Y %H:%M}<br><b>Temperatura</b>: %{y}°C<br>'  # Tooltip in italiano con formato data
 )])
 
